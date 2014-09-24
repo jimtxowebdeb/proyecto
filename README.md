@@ -12,6 +12,7 @@
 Empezamos con el servidor de la aplicacion para contar gente.
 phonegap
 
+PRUEBA:
 poner codigo: '''bash
 $ sudo apt-get install curl
-'''
+
