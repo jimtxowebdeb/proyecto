@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title></title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<table id="tabla" border=1>
+
+	<script type="text/javascript" >
+
+	$.getJSON( "http://localhost:3000/listarecintos", function( data ) {
+	 var texto="";
+ 	 $.each( data.bares, function( key, val ) {
+    texto+= "<tr><td id='" + val + "'>" + val + "</td></tr>" ;
+  });
+ 
+  
+ 
+	document.getElementById("tabla").innerHTML = texto;
+	/*document.getElementById("2").innerHTML = data.bares[1];
+	document.getElementById("3").innerHTML = data.bares[2];
+*/  /*$.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+ 
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );*/
+});
+
+
+
+	
+
+	
+
+	</script>
+  </table>
+</body>
+</html>
