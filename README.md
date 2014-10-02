@@ -12,7 +12,9 @@
 Empezamos con el servidor de la aplicacion para contar gente.
 phonegap
 
-PRUEBA:
-poner codigo: ''' bash
-$ sudo apt-get install curl
+FUNCIONA:
+  - Conexion con la base de datos.
+  - Envia y recibe peticiones.
+  - Suma y resta personas.
+  - Enseña las personas que hay en cada bar.
 
