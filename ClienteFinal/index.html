@@ -1,41 +1,32 @@
 <html>
 <head>
-	<title></title>
+	<title>index</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 <body>
-<table id="tabla" border=1>
+<table id="tabla" border="1">
 
-	<script type="text/javascript" >
+	<script type="text/javascript">
 
-	$.getJSON( "http://localhost:3000/listarecintos", function( data ) {
-	 var texto="";
- 	 $.each( data.bares, function( key, val ) {
-    texto+= "<tr><td id='" + val + "'>" + val + "</td></tr>" ;
-  });
+	$.getJSON( "http://localhost:3000/listarecintos", function(data) {
+	 
+   var cont = 1;
+   var texto="<tr><td>Recintos</td><td>Mujeres</td><td>Hombres</td></tr>";
+ 	 
+   $.each( data, function( cont, val ) {
+      
+      texto+= "<tr><td idRecintos='" + cont + "'>" + val.Nombre + "</td><td idRecintos='" + cont + "'>" + val.Mujeres + "</td><td idRecintos='" + cont + "'>" + val.Hombres + "</td></tr>" ;
+    
+      cont++;
+    
+    });
  
-  
- 
+
 	document.getElementById("tabla").innerHTML = texto;
-	/*document.getElementById("2").innerHTML = data.bares[1];
-	document.getElementById("3").innerHTML = data.bares[2];
-*/  /*$.each( data, function( key, val ) {
-    items.push( "<li id='" + key + "'>" + val + "</li>" );
+	
   });
- 
-  $( "<ul/>", {
-    "class": "my-new-list",
-    html: items.join( "" )
-  }).appendTo( "body" );*/
-});
 
-
-
-	
-
-	
-
-	</script>
-  </table>
+</script>
+</table>
 </body>
 </html>

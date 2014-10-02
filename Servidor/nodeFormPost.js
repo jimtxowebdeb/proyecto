@@ -1,7 +1,26 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var app = express();
+
 app.use(bodyparser());
+
+var sqlze = require('sequelize');
+var db = new sqlze('proyecto', 'root', 'zubiri',{
+  dialect: 'mysql',
+  port: 3306
+});
+
+
+
+db
+  .authenticate()
+  .complete(function(err){
+    if(!!err) {
+      console.log('Unable to connect to database: ', err);
+    } else {
+      console.log('Connection OK!');
+    }
+  });
 
 app.use(function (req, res, next) {
 
@@ -22,19 +41,28 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/listarecintos', function(req, res) {
+app.get('/listaRecintos', function(req, res) {
 
-/*  var id = req.params.id;
   // Raw query
-  db.query('SELECT * FROM tablename WHERE id='+ id).success(function(rows){
+  db.query('SELECT * FROM Recintos;').success(function(rows){
     // no errors
     console.log(rows);
     res.json(rows);
-    // res.json(JSON.stringify(rows));
-  });*/
-var recintos = {"bares":["Iturtxo","Tamer","Aralar"]};
 
-res.json(recintos);
+  });
+
+});
+
+app.get('/cantidadRecinto/:recinto', function(req, res) {
+
+  // Raw query
+  db.query('SELECT Mujeres,Hombres FROM Recintos WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
+    // no errors
+    console.log(rows);
+    res.json(rows);
+
+  });
+
 });
 
 var server = app.listen(process.env.PORT || 3000, function(){
