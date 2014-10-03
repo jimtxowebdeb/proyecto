@@ -55,7 +55,8 @@
 	function enviarDato(dato){
 
 		$.post("http://localhost:3000/modificarCantidadRecinto/" + dato + "/" + recinto);
-		
+		location.reload();
+		//$.get("http://localhost:3000/CantidadRecinto/"+ recinto);
 
 	}
 

@@ -116,9 +116,11 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
   // Raw query
   db.query('UPDATE Recintos SET ' + columna + ' = ' + columna + valor +' WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
     // no errors
-    res.sendFile(__dirname + '/ClienteMedio/index.html');
-  });
 
+   // res.sendFile(__dirname + '/ClienteMedio/index.html');
+
+  });
+ 
 });
 
 
