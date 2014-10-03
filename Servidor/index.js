@@ -49,7 +49,7 @@ app.get('/ClienteFinal', function(req, res){
 });
 
 // PAGINA CLIENTE MEDIO
-app.get('/ClienteMedio', function(req, res){
+app.get('/', function(req, res){
 
    res.sendFile(__dirname + '/ClienteMedio/index.html');
 
