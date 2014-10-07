@@ -2,6 +2,7 @@
 <head>
 	<title>index</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 </head>
 <body>
 <table id="tabla" border="1">
@@ -12,10 +13,11 @@
 	 
    var cont = 1;
    var texto="<tr><td>Recintos</td><td>Mujeres</td><td>Hombres</td></tr>";
- 	 
+   
+
    $.each( data, function( cont, val ) {
       
-      texto+= "<tr><td idRecintos='" + cont + "'>" + val.Nombre + "</td><td idRecintos='" + cont + "'>" + val.Mujeres + "</td><td idRecintos='" + cont + "'>" + val.Hombres + "</td></tr>" ;
+      texto+= "<tr><td idRecintos='" + cont + "'>" + val.Nombre + "</td><td idRecintos='" + cont + "mujeres'>" + val.Mujeres + "</td><td idRecintos='" + cont + "hombres'>" + val.Hombres + "</td></tr>" ;
     
       cont++;
     
@@ -26,6 +28,13 @@
 	
   });
 
+	var socket = io.connect('http://localhost:3000');
+	socket.on('connection', function(){
+		 console.log('a user connecteda');
+	});
+ 	socket.on('cambiorecinto', function(numero){
+	   	$('#1mujeres').innerHTML=numero;
+	});
 </script>
 </table>
 </body>

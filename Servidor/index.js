@@ -1,8 +1,15 @@
-var express = require('express');
+var express = require('express'), path = require('path'), fs = require('fs');
 var bodyparser = require('body-parser');
-var app = express();
+
+var app = require('express')();
+var servidor = require('http').createServer(app);
+var io = require('socket.io').listen(servidor);
+servidor.listen(3000);
+console.log("conectado");
 
 app.use(bodyparser());
+
+app.use(express.static(__dirname + '/public'));
 
 // CONEXION BASE DE DATOS
 var sqlze = require('sequelize');
@@ -21,7 +28,7 @@ db
     }
   });
 
-/*
+
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -39,7 +46,7 @@ app.use(function (req, res, next) {
 
     // Pass to next layer of middleware
     next();
-});*/
+});
 
 // PAGINA CLIENTE FINAL
 app.get('/ClienteFinal', function(req, res){
@@ -51,7 +58,7 @@ app.get('/ClienteFinal', function(req, res){
 // PAGINA CLIENTE MEDIO
 app.get('/', function(req, res){
 
-   res.sendFile(__dirname + '/ClienteMedio/index.html');
+   res.sendFile(__dirname + '/index.html');
 
 });
 
@@ -123,8 +130,31 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
  
 });
 
+io.sockets.on('connection', function(socket){
+  console.log('a user connected');
+   socket.on('cambiorecinto', function(msg){
+    io.sockets.emit('cambiorecinto', msg);
+    console.log('a user connected');
+  });
+});
+/*
+io.on('connection', function(socket){
+  socket.on('cambiorecinto', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+*/io.sockets.emit('some event', { for: 'everyone' });
+/*
+io.on('connection', function(socket){
+  socket.broadcast.emit('hi');
+});
 
+io.on('connection', function(socket){
+  socket.on('cambiorecinto', function(msg){
+    io.emit('cambiorecinto', msg);
+  });
+});
 
 var server = app.listen(process.env.PORT || 3000, function(){
     console.log('Listening in port %d', server.address().port);
-});
+});*/
