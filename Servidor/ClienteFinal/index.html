@@ -11,14 +11,14 @@
 
 	$.getJSON( "http://localhost:3000/listarecintos", function(data) {
 	 
-   var cont = 1;
+   
    var texto="<tr><td>Recintos</td><td>Mujeres</td><td>Hombres</td></tr>";
    
-
+var cont2 = 1;
    $.each( data, function( cont, val ) {
       
-      texto+= "<tr><td idRecintos='" + cont + "'>" + val.Nombre + "</td><td idRecintos='" + cont + "mujeres'>" + val.Mujeres + "</td><td idRecintos='" + cont + "hombres'>" + val.Hombres + "</td></tr>" ;
-    
+      texto+= "<tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr>" ;
+    cont2++;
       cont++;
     
     });
@@ -28,13 +28,18 @@
 	
   });
 
-	var socket = io.connect('http://localhost:3000');
-	socket.on('connection', function(){
-		 console.log('a user connecteda');
-	});
- 	socket.on('cambiorecinto', function(numero){
-	   	$('#1mujeres').innerHTML=numero;
-	});
+	
+		var socket = io();
+  	socket.on('cambiorecinto', function(msg){
+  		var nombre=msg.columna+msg.id;
+  		if(msg.columna == "Mujeres")
+  			{
+	 	document.getElementById(nombre).innerHTML=msg.numero[0].Mujeres;
+	 }else{
+	 	document.getElementById(nombre).innerHTML=msg.numero[0].Hombres;
+	 }
+ 	 });
+
 </script>
 </table>
 </body>

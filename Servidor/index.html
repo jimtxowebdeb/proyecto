@@ -66,18 +66,26 @@
 
 	function enviarDato(dato){
 
-		var socket = io.connect('http://localhost:3000');
+		
 
 		$.post("http://localhost:3000/modificarCantidadRecinto/" + dato + "/" + recinto);
 		
 
-	    socket.emit("cambiorecinto", 11);
 	
 	  
-	   	location.reload();
+	   //	location.reload();
 
 	}
-
+	var socket = io();
+  	socket.on('cambiorecinto', function(msg){
+  		if(msg.columna == "Mujeres")
+  			{
+  				document.getElementById("cantidadMujeres").innerHTML = msg.numero;
+  			}
+  	 	 else{
+			document.getElementById("cantidadHombres").innerHTML = msg.numero;
+			}	
+ 	 });
 	</script>
 
 </body>

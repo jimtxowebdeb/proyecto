@@ -4,6 +4,7 @@ var bodyparser = require('body-parser');
 var app = require('express')();
 var servidor = require('http').createServer(app);
 var io = require('socket.io').listen(servidor);
+
 servidor.listen(3000);
 console.log("conectado");
 
@@ -127,23 +128,21 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
    // res.sendFile(__dirname + '/ClienteMedio/index.html');
 
   });
- 
-});
+ db.query('SELECT '+ columna+' FROM Recintos WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
+    // no errors
+      io.sockets.emit('cambiorecinto', {"id":req.params.recinto,"columna":columna, "numero": rows});
 
-io.sockets.on('connection', function(socket){
-  console.log('a user connected');
-   socket.on('cambiorecinto', function(msg){
-    io.sockets.emit('cambiorecinto', msg);
-    console.log('a user connected');
   });
 });
+
+
 /*
 io.on('connection', function(socket){
   socket.on('cambiorecinto', function(msg){
     console.log('message: ' + msg);
   });
-});
-*/io.sockets.emit('some event', { for: 'everyone' });
+});*/
+
 /*
 io.on('connection', function(socket){
   socket.broadcast.emit('hi');
