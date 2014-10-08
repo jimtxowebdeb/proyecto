@@ -4,7 +4,7 @@
 	<meta charset="UTF-8"/>
 	<title>¿Quién anda ahí?</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+	<script src="socket.io/socket.io.js"></script>
 
 </head>
 <body>
@@ -48,7 +48,7 @@
 	  
 	function cantidades(){
 		
-		var cantidades=$.getJSON("http://localhost:3000/cantidadRecinto/"+recinto,function(data){
+		var cantidades=$.getJSON("/cantidadRecinto/"+recinto,function(data){
 		 
  			mujeres = data[0].Mujeres;
  			hombres = data[0].Hombres;
@@ -68,7 +68,7 @@
 
 		
 
-		$.post("http://localhost:3000/modificarCantidadRecinto/" + dato + "/" + recinto);
+		$.post("/modificarCantidadRecinto/" + dato + "/" + recinto);
 		
 
 	

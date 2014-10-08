@@ -2,14 +2,14 @@
 <head>
 	<title>index</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+	<script src="socket.io/socket.io.js"></script>
 </head>
 <body>
 <table id="tabla" border="1">
 
 	<script type="text/javascript">
 
-	$.getJSON( "http://localhost:3000/listarecintos", function(data) {
+	$.getJSON( "/listarecintos", function(data) {
 	 
    
    var texto="<tr><td>Recintos</td><td>Mujeres</td><td>Hombres</td></tr>";

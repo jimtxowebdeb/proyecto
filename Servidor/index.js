@@ -72,10 +72,27 @@ app.get('/login', function(req, res){
 
 // TRATAMIENTO ENVIO DE LOGIN
 app.post('/log', function(req, res){
-    req.body.usuario
-    req.body.pass
-   res.sendFile(__dirname + '/login.html');
+ 
+  db.query('SELECT Password, idUsuarios FROM Usuarios where User="'+ req.param("usuario")+'";').success(function(rows){
+    // no errors
 
+    var password = req.param("pass");
+    
+    if(rows[0].Password.toString() == password){
+      
+      db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
+        // no errors
+        var idRec = rowsa[0].idRecinto.toString();
+         res.send(idRec);
+      });
+
+    }else{
+      res.send("Password incorrecto");
+    }
+
+    }).error(function (err){
+        res.send("Usuario incorrecto");
+  });
 });
 
 // ENSEÑAR MUJERES HOMBRES DE CADA RECINTO PARA EL CLIENTE FINAL
@@ -150,6 +167,14 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
   });
 });
 
+
+// ENCRIPTAR CONTRASEÑA EN NODE
+/*function encriptar(user, pass) {
+   var crypto = require('crypto')
+   // usamos el metodo CreateHmac y le pasamos el parametro user y actualizamos el hash con la password
+   var hmac = crypto.createHmac('sha1', user).update(pass).digest('hex')
+   return hmac
+}*/
 
 /*
 io.on('connection', function(socket){

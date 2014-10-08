@@ -3,13 +3,17 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>login</title>
+
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/login.js"></script>-->
+
 </head>
 <body>
 	
 	<form id="form_login" action="/log" method="POST">
 	
-	<p>Usuario:</p><input id="usuario" type="text"/>
-	<p>Contraseña:</p><input id="pass" type="password"/>
+	<p>Usuario:<input id="usuario" name="usuario" type="text"/></p>
+	<p>Contraseña:<input id="pass" name="pass" type="password"/></p>
 	<input id="enviar" type="submit" value="Entrar"/>
 
 	</form>
