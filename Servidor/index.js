@@ -63,6 +63,21 @@ app.get('/', function(req, res){
 
 });
 
+// PAGINA LOGIN
+app.get('/login', function(req, res){
+
+   res.sendFile(__dirname + '/login.html');
+
+});
+
+// TRATAMIENTO ENVIO DE LOGIN
+app.post('/log', function(req, res){
+    req.body.usuario
+    req.body.pass
+   res.sendFile(__dirname + '/login.html');
+
+});
+
 // ENSEÑAR MUJERES HOMBRES DE CADA RECINTO PARA EL CLIENTE FINAL
 app.get('/listaRecintos', function(req, res) {
 
