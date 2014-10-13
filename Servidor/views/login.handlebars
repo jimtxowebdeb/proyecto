@@ -9,9 +9,10 @@
 
 </head>
 <body>
-
-	<p color="red">{{error}}</p>
 	
+	{{#if error}}
+	<p color="red">{{error}}</p>
+	{{/if}}
 	<form id="form_login" action="/log" method="POST">
 	
 	<p>Usuario:<input id="usuario" name="usuario" type="text"/></p>
