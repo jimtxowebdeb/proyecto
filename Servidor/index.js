@@ -8,32 +8,38 @@ var io = require('socket.io').listen(servidor);
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
-servidor.listen(3000);
-console.log("conectado");
-
 app.use(bodyparser());
 
 
 app.use(express.static(__dirname + '/public'));
 
 // CONEXION BASE DE DATOS
-var sqlze = require('sequelize');
-var db = new sqlze('proyecto', 'root', 'zubiri',{
-  dialect: 'mysql',
-  port: 3306
+
+// database config
+var Sequelize = require('sequelize');
+var db = null;
+
+if (process.env.DATABASE_URL) {
+  // the application is executed on Heroku ... use the postgres database
+  db = new Sequelize(process.env.DATABASE_URL);
+} else {
+    // the application is executed on the local machine ... use mysql
+    // var db = new sqlze('databasename', 'username', 'password',{
+    db = new Sequelize('test', 'peru', 'peru',{
+      dialect: 'mysql',
+      port: 3306
+    });
+}
+
+db.authenticate().complete(function(err){
+  if(!!err) {
+    console.log('Unable to connect to database: ', err);
+  } else {
+    console.log('Connection OK!');
+  }
 });
 
-db
-  .authenticate()
-  .complete(function(err){
-    if(!!err) {
-      console.log('Unable to connect to database: ', err);
-    } else {
-      console.log('Connection OK!');
-    }
-  });
-
-
+/*
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -52,6 +58,7 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+*/
 
 // PAGINA CLIENTE FINAL
 app.get('/clienteFinal', function(req, res){
@@ -189,7 +196,6 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
   });
 });
 
-/*
 var server = app.listen(process.env.PORT || 3000, function(){
     console.log('Listening in port %d', server.address().port);
-});*/
+});
