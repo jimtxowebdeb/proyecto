@@ -4,14 +4,11 @@
 	<meta charset="UTF-8"/>
 	<title>¿Quién anda ahí?</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="socket.io/socket.io.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 
 </head>
 <body>
 
-	<div id="cabecera">
-		<img src="../Imagenes/logo.jpg" width="10%" height="10%"/>	
-	</div>
 	<form id="form">
 	<table>
 		<tr>
@@ -42,7 +39,7 @@
 	var recinto = {{recinto}};
 	var mujeres="";
 	var hombres="";
-	
+	var socket = io();
 	
 
 	  
@@ -76,7 +73,7 @@
 	   //	location.reload();
 
 	}
-	var socket = io();
+	
   	socket.on('cambiorecinto', function(msg){
   		if(msg.columna == "Mujeres")
   			{

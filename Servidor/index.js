@@ -1,14 +1,19 @@
-var express = require('express'), path = require('path'), fs = require('fs'), exphbs = require('express-handlebars');
+var path = require('path'), fs = require('fs'), exphbs = require('express-handlebars');
 var bodyparser = require('body-parser');
-
+var express=require('express');
 var app = require('express')();
 var servidor = require('http').createServer(app);
+servidor = app.listen(process.env.PORT || 3000, function(){
+    console.log('Listening in port %d', servidor.address().port);
+});
 var io = require('socket.io').listen(servidor);
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 app.use(bodyparser());
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 
 
 app.use(express.static(__dirname + '/public'));
@@ -25,7 +30,7 @@ if (process.env.DATABASE_URL) {
 } else {
     // the application is executed on the local machine ... use mysql
     // var db = new sqlze('databasename', 'username', 'password',{
-    db = new Sequelize('test', 'peru', 'peru',{
+    db = new Sequelize('proyecto', 'root', 'zubiri',{
       dialect: 'mysql',
       port: 3306
     });
@@ -63,7 +68,7 @@ app.use(function (req, res, next) {
 // PAGINA CLIENTE FINAL
 app.get('/clienteFinal', function(req, res){
 
-  res.sendFile(__dirname + '/ClienteFinal/index.html');
+ res.render('clienteFinal');
 
 });
 
@@ -192,10 +197,8 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
  db.query('SELECT '+ columna+' FROM Recintos WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
     // no errors
       io.sockets.emit('cambiorecinto', {"id":req.params.recinto,"columna":columna, "numero": rows});
-
+      console.log("kk")
   });
 });
 
-var server = app.listen(process.env.PORT || 3000, function(){
-    console.log('Listening in port %d', server.address().port);
-});
+
