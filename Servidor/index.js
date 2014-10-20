@@ -2,11 +2,24 @@ var path = require('path'), fs = require('fs'), exphbs = require('express-handle
 var bodyparser = require('body-parser');
 var express=require('express');
 var app = require('express')();
+
 var servidor = require('http').createServer(app);
 servidor = app.listen(process.env.PORT || 3000, function(){
     console.log('Listening in port %d', servidor.address().port);
 });
+
 var io = require('socket.io').listen(servidor);
+
+var Sequelize = require('sequelize');
+var db = null;
+
+var session = require('express-session');
+app.use(session({
+                  resave:true,
+                  saveUninitialized:true,
+                  secret:'uwotm8'
+                })
+);
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -21,8 +34,7 @@ app.use(express.static(__dirname + '/public'));
 // CONEXION BASE DE DATOS
 
 // database config
-var Sequelize = require('sequelize');
-var db = null;
+
 
 if (process.env.DATABASE_URL) {
   // the application is executed on Heroku ... use the postgres database
@@ -72,9 +84,25 @@ app.get('/clienteFinal', function(req, res){
 
 });
 
+app.post('/registro', function(req, res){
+  res.send(req.body);
+});
+
+app.get('/registro', function(req, res){
+
+ res.render('registro');
+
+});
+
+app.get('/mapa', function(req, res){
+
+ res.render('mapa');
+
+});
+
 // PAGINA RECINTO
-app.get('/recinto/:recinto', function(req, res){
-  var recinto = {recinto: req.params.recinto};
+app.get('/recinto', function(req, res){
+  var recinto = {recinto: req.session.idRec};
   res.render('recinto', recinto);
 
 });
@@ -88,7 +116,11 @@ res.render('login');
 
 app.get('/login/:error', function(req, res){
 
-  var error = {error: req.params.error};
+  var error = "";
+  if(req.params.error=="Passinc")
+    error={error:"Password incorrecto"};
+  if(req.params.error=="Usuinc")
+    error={error:"Usuario incorrecto"};
   res.render('login',error);
 
 });
@@ -117,15 +149,16 @@ app.post('/log', function(req, res){
       db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
         // no errors
         var idRec = rowsa[0].idRecinto.toString();
-         res.redirect('/recinto/'+idRec);
+         req.session.idRec=idRec; 
+         res.redirect('/recinto/');
       });
 
     }else{
-      res.redirect('/login/'+"Password incorrecto");
+      res.redirect('/login/'+"Passinc");
     }
 
     }).error(function (err){
-        res.redirect('/login/'+ "Usuario incorrecto");
+        res.redirect('/login/'+ "Usuinc");
   });
 });
 
