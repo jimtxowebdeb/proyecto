@@ -14,11 +14,11 @@ Mapa recintos
 
 	<script type="text/javascript">
 
-	var recintosList = {
-		address: "Liceaga 2, Hernani", data:"marker1"};/*
-		address: "Madalena kalea 8, Hernani", data:"marker2",
-		address: "Alto aldakonea 62, San sebastian", data:"marker3"*/
-	
+	var recintosList = [
+		{address: "Olmos de los Ibilbidea, 2, San Sebastián", data:"Casa"},
+		{address: "Alcalde J. Elosegi Hiribidea, 130, San Sebastián", data:"casa2"},
+		{address: "Aldakonea Kalea, 62, San Sebastián", data:"casa3"}
+	];
 
 
 	$("#mapa").width("600px").height("350px").gmap3({
@@ -26,16 +26,16 @@ Mapa recintos
     options: {
       center:[43.3155781,-1.9634024],
       zoom: 10,
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+    
     }
   },
   marker: {
-    values: recintosList,
+     values:recintosList,
     cluster:{
       radius:100,
       // This style will be used for clusters with more than 0 markers
       0: {
-        content: "<div class='cluster cluster-1'>CLUSTER_COUNT</div>",
+        content: "<div style='background-color:red'>CLUSTER_COUNT</div>",
         width: 53,
         height: 52
       },
@@ -55,29 +55,27 @@ Mapa recintos
     options: {
       icon: new google.maps.MarkerImage("http://maps.gstatic.com/mapfiles/icon_green.png")
     },
-    events:{
+      events:{
       mouseover: function(marker, event, context){
-        $(this).gmap3(
-          {clear:"overlay"},
-          {
-          overlay:{
-            latLng: marker.getPosition(),
-            options:{
-              content:  "<div class='infobulle"+(context.data.drive ? " drive" : "")+"'>" +
-                          "<div class='bg'></div>" +
-                          "<div class='text'>" + context.data.city + " (" + context.data.zip + ")</div>" +
-                        "</div>" +
-                        "<div class='arrow'></div>",
-              offset: {
-                x:-46,
-                y:-73
-              }
+        var map = $(this).gmap3("get"),
+          infowindow = $(this).gmap3({get:{name:"infowindow"}});
+        if (infowindow){
+          infowindow.open(map, marker);
+          infowindow.setContent(context.data);
+        } else {
+          $(this).gmap3({
+            infowindow:{
+              anchor:marker, 
+              options:{content: context.data}
             }
-          }
-        });
+          });
+        }
       },
       mouseout: function(){
-        $(this).gmap3({clear:"overlay"});
+        var infowindow = $(this).gmap3({get:{name:"infowindow"}});
+        if (infowindow){
+          infowindow.close();
+        }
       }
     }
   }
