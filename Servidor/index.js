@@ -77,6 +77,25 @@ app.use(function (req, res, next) {
 });
 */
 
+app.get('/', function(req, res){
+
+  res.render('index');
+
+});
+
+// PAGINA LOGIN
+
+
+app.get('/login/:error?', function(req, res){
+
+  var error = "";
+  if(req.params.error=="Passinc")
+    error={error:"Password incorrecto"};
+  if(req.params.error=="Usuinc")
+    error={error:"Usuario incorrecto"};
+    res.render('login',error);
+});
+
 // PAGINA CLIENTE FINAL
 app.get('/clienteFinal', function(req, res){
 
@@ -107,24 +126,6 @@ app.get('/recinto', function(req, res){
 
 });
 
-// PAGINA LOGIN
-app.get('/', function(req, res){
-
-res.render('login');
-
-});
-
-app.get('/login/:error', function(req, res){
-
-  var error = "";
-  if(req.params.error=="Passinc")
-    error={error:"Password incorrecto"};
-  if(req.params.error=="Usuinc")
-    error={error:"Usuario incorrecto"};
-  res.render('login',error);
-
-});
-
 // ENCRIPTAR CONTRASEÑA EN NODE
 
 function encriptar(user, pass) {
@@ -139,8 +140,8 @@ app.post('/log', function(req, res){
  
   db.query('SELECT Password, idUsuarios FROM Usuarios where User="'+ req.param("usuario")+'";').success(function(rows){
     // no errors
-    var usuario = req.param("usuario");
-    var password = req.param("pass");
+    var usuario = req.body.usuario;
+    var password = req.body.pass;
 
     var pass = encriptar(usuario, password);
 
@@ -154,11 +155,13 @@ app.post('/log', function(req, res){
       });
 
     }else{
-      res.redirect('/login/'+"Passinc");
+      console.log("password");
+      res.send("Password incorrecto");
     }
 
-    }).error(function (err){
-        res.redirect('/login/'+ "Usuinc");
+    }).error(function (err){  
+     console.log("usuario");
+    res.send("Usuario incorrecto");
   });
 });
 

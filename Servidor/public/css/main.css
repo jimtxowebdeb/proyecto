@@ -1,0 +1,76 @@
+body, html{
+			height: 100%;
+			width: 100%;
+			margin: 0px;
+			padding: 0px;
+			font: bold 14px Arial;
+			color: white;
+			background-image: url("../Imagenes/bg.jpg");
+			background-repeat:repeat;
+			background-size:100% 100%;
+			background-origin:content-box;
+		}
+
+		#cabecera{
+			width: 100%;
+			display: -webkit-flex;
+			display: flex;
+			flex-flow: row;
+		}
+
+		#main{
+			height: 80%;
+			display: -webkit-flex;
+			display: flex;
+			flex-flow: row;
+		}
+
+
+		#main section{
+			flex: 1 1 100%;
+			border: 1px solid white;
+			background-image: url("../Imagenes/fondo2.jpg");
+			background-repeat:no-repeat;
+			background-size:100% 100%;
+			background-origin:content-box;
+			color: white;
+		}
+
+		header{
+			display: block;
+			min-height: 8%;
+			width: 100%;
+		}
+
+		footer{
+			display: block;
+			min-height: 12%;
+			text-align: center;
+			margin: 25px;
+		}
+
+
+		#logo{
+			float: left;
+			width: 76%;
+			margin-top: 5px;
+			margin-left: 25px;
+			margin-bottom: 1px;
+		}
+
+		#menuHeader{
+			float: left;
+			width: 20%;
+			margin: 25px;
+		}
+
+		#menuHeader a{
+			padding-left: 20px;
+			text-decoration: none;
+			color: white;
+			font: bold 16px Arial, serif;
+		}
+
+		.clear {
+			clear: both;
+		}

@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>¿Quíen anda ahí?</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<link rel="stylesheet" type="text/css" href="../css/login.css" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div id="cabecera">
+		<header>
+			<div id="logo"><img src="Imagenes/logo.png"></div>
+			<div id="menuHeader">
+				<a href="./">Regístrate</a>
+				<a id="login">Inicia sesión</a>
+				<a href="./"><input type="button" value="Publica tu negocio" /></a>
+			</div>
+		</header>
+	</div>
+	<div id="main">
+		
+		<section>
+			<div class="login-form">
+		
+				
+				<p id="error"></p>
+				
+
+			 	<h1>Login Form</h1>
+		 
+			    <form id="form_login">
+			 
+			        <input type="text" id="usuario" name="usuario" placeholder="usuario">
+			 
+			        <input type="password" id="pass" name="pass" placeholder="password">
+			 
+			        <span>
+			            <input type="checkbox" name="checkbox">
+			            <label for="checkbox">Recordarme</label>
+			        </span>
+			 
+			        <input type="submit" id="enviar" value="ENTRAR">
+			 
+			    </form>
+
+			</div>
+		</section>
+		
+	</div>
+	
+	<footer class="clear">	
+
+		Siguenos en: 
+		
+		</br>
+		
+		<a href="http://www.facebook.com"><img src="Imagenes/facebook.png" /></a>
+		<a href="http://plus.google.com"><img src="Imagenes/google.png" /></a>
+		<a href="http://www.twitter.com"><img src="Imagenes/twiter.png" /></a>
+		
+		</br>
+		
+		Copyright Rubén Aparicio y Alvaro Jimenez
+	
+	</footer>
+
+</body>
+
+<script>
+
+$(document).ready(function() {
+	 
+	$( "#form_login" ).submit(function( event ) {
+		console.log("submit");
+		/* Stop form from submitting normally */
+		event.preventDefault();
+		/* Clear result div*/
+		var formData = $(this).serializeArray();
+	
+		$.ajax({
+			// type: "GET",
+			type: "POST",
+			url: "/log",
+			//dataType: "json",
+			dataType: "html",
+			data: formData,
+	
+		success: function(data){
+			console.log(data);
+			if(data=="Password incorrecto" || data=="Usuario incorrecto")
+			$( "#error" ).text(data);
+			else
+				$( "#main" ).html(data);
+		},
+		
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			//alert("Status: " + textStatus); alert("Error: " + errorThrown);
+			console.log(XMLHttpRequest.responseText);
+				$( "#contentDiv" ).html(XMLHttpRequest.responseText);
+			}
+		});
+	});
+	
+	//Volver visible el login
+ 	$('#login').click(function(){
+ 		$('.login-form').css("visibility","visible");
+ 		$('.login-form').css("right","50px");
+ 	});
+
+ 	$('#login').hover(function(){
+ 		$(this).css("cursor","pointer");
+ 	});
+
+    // Check if JavaScript is enabled
+    $('body').addClass('js');
+ 
+    // Make the checkbox checked on load
+    $('.login-form span').addClass('checked').children('input').attr('checked', true);
+ 
+    // Click function
+    $('.login-form span').on('click', function() {
+ 
+        if ($(this).children('input').attr('checked')) {
+            $(this).children('input').attr('checked', false);
+            $(this).removeClass('checked');
+        }
+ 
+        else {
+            $(this).children('input').attr('checked', true);
+            $(this).addClass('checked');
+        }
+ 
+    });
+ 
+});
+</script>
+
+</html>
