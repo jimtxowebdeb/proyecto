@@ -79,7 +79,14 @@ app.use(function (req, res, next) {
 
 app.get('/', function(req, res){
 
-  res.render('index');
+  res.render('index', req.session.usuario);
+
+});
+
+app.get('/cerrarSesion', function(req, res){
+
+  req.session.usuario = null;
+  res.redirect("/");
 
 });
 
@@ -121,7 +128,7 @@ app.get('/mapa', function(req, res){
 
 // PAGINA RECINTO
 app.get('/recinto', function(req, res){
-  var recinto = {recinto: req.session.idRec};
+  var recinto = {recinto: "1"};
   res.render('recinto', recinto);
 
 });
@@ -150,19 +157,19 @@ app.post('/log', function(req, res){
       db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
         // no errors
         var idRec = rowsa[0].idRecinto.toString();
-         req.session.idRec=idRec; 
-         res.redirect('/recinto/');
+        req.session.usuario={ "recinto" : idRec ,"usuario": usuario };
+        res.send("ok");
       });
 
     }else{
-      console.log("password");
+    
       res.send("Password incorrecto");
     }
 
     }).error(function (err){  
-     console.log("usuario");
-    res.send("Usuario incorrecto");
-  });
+  
+      res.send("Usuario incorrecto");
+    });
 });
 
 // ENSEÑAR MUJERES HOMBRES DE CADA RECINTO PARA EL CLIENTE FINAL

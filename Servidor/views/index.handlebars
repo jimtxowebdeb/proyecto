@@ -8,59 +8,107 @@
 	<link rel="stylesheet" type="text/css" href="../css/login.css" />
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true_or_false"></script>
+	<script type="text/javascript" src="js/jquery.geocomplete.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+	<script type="text/javascript" src="gmap3-master/dist/gmap3.min.js"></script>
 
 </head>
 <body>
+	
 	<div id="cabecera">
 		<header>
 			<div id="logo"><img src="Imagenes/logo.png"></div>
-			<div id="menuHeader">
-				<a href="./">Regístrate</a>
-				<a id="login">Inicia sesión</a>
-				<a href="./"><input type="button" value="Publica tu negocio" /></a>
-			</div>
 		</header>
 	</div>
+	
 	<div id="main">
 		
 		<section>
-			<div class="login-form">
-		
-				
-				<p id="error"></p>
-				
+			<!-- Login -->
+		<div id="toppanel">
+			<div id="panel">
+				<div class="content clearfix">
+					<div class="left">
+						<h1>Bienvenidos a ¿Quíen anda ahí?</h1>
+						<h2>Tu web para encontrar la diversión</h2>		
+						<p class="grey">Aquí vas a ver la lista de bares con su respectiva cantidad de gente y su correspondiente diversión. Animate!</h2>
+						<p class="grey">La pagina de donde lo hemos sacado <a href="http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery" title="Download">article &raquo;</a></p>
+					</div>
+					<div class="left">
+						<form class="clearfix" name="form_login" id="form_login">
+							<h1 class="padlock">Login</h1>
+							<label class="grey" for="log">Usuario:</label>
+							<input class="field" type="text" name="usuario" id="usuario" value="" size="23" />
+							<label class="grey" for="pwd">Password:</label>
+							<input class="field" type="password" name="pass" id="pass" size="23" />
+							<p id="error"></p>
+			            	<label><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> &nbsp;Recordarme</label>
+		        			<div class="clear"></div>
+							<input type="submit" name="submit" value="Entrar" class="bt_login" />
+							<a class="lost-pwd" href="#">Has olvidado tu contraseña?</a>
+						</form>
+					</div>
+					<div class="left right">
+						<form action="#" method="post">
+							<h1>Aun no eres usuario? Registrate!</h1>				
+							<label class="grey" for="signup">Usuario:</label>
+							<input class="field" type="text" name="signup" id="signup" value="" size="23" />
+							<label class="grey" for="email">Email:</label>
+							<input class="field" type="text" name="email" id="email" size="23" />
+							<label>Rellena el siguiente formulario</label>
+							<input type="submit" name="submit" value="Registro" class="bt_register" />
+							</br>
+							<a href="http://plus.google.com"><img class="imgRegis" src="Imagenes/iconoGoogle.png" /></a>
+							<a href="http://www.facebook.com"><img class="imgLink" src="Imagenes/iconoFacebook.png" /></a>
+						</form>
+					</div>
+				</div>
+			</div> <!-- /login -->	
 
-			 	<h1>Login Form</h1>
-		 
-			    <form id="form_login">
-			 
-			        <input type="text" id="usuario" name="usuario" placeholder="usuario">
-			 
-			        <input type="password" id="pass" name="pass" placeholder="password">
-			 
-			        <span>
-			            <input type="checkbox" name="checkbox">
-			            <label for="checkbox">Recordarme</label>
-			        </span>
-			 
-			        <input type="submit" id="enviar" value="ENTRAR">
-			 
-			    </form>
+		    <!-- The tab on top -->	
+			<div class="tab">
+				<ul class="login">
+			    	<li class="left">&nbsp;</li>
+			        <li>Hola {{#if usuario}}{{usuario}}{{else}}Invitado!{{/if}}</li>
+					<li class="sep">|</li>
+					<li id="toggle">
+						{{#unless usuario}}<a id="open" class="open" href="#">Login | Registro</a>{{else}}<a href="/cerrarSesion">Cerrar Sesión</a>{{/unless}}
+						<a id="close" style="display: none;" class="close" href="#">Cerrar Panel</a>			
+					</li>
+			    	<li class="right">&nbsp;</li>
+				</ul> 
+			</div> <!-- / top -->
+			
+		</div> <!--panel -->
 
-			</div>
+		<div id="buscador">
+			<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
+			<input type="button" id="btnBusqueda" value="BUSCAR"></input>
+		</div>
+
+		<div id="tablaRecintos">
+			
+			<table id="tabla" border="1">
+				<tr><td>Recintos</td><td>Mujeres</td><td>Hombres</td></tr>
+			</table>
+
+		</div>
+
+
 		</section>
 		
 	</div>
 	
-	<footer class="clear">	
+	<footer>	
 
 		Siguenos en: 
 		
 		</br>
 		
-		<a href="http://www.facebook.com"><img src="Imagenes/facebook.png" /></a>
-		<a href="http://plus.google.com"><img src="Imagenes/google.png" /></a>
-		<a href="http://www.twitter.com"><img src="Imagenes/twiter.png" /></a>
+		<a class="link" href="http://www.facebook.com"><img class="imgLink" src="Imagenes/facebook.png" /></a>
+		<a class="link" href="http://plus.google.com"><img class="imgLink" src="Imagenes/google.png" /></a>
+		<a class="link" href="http://www.twitter.com"><img class="imgLink" src="Imagenes/twiter.png" /></a>
 		
 		</br>
 		
@@ -74,7 +122,7 @@
 
 $(document).ready(function() {
 	 
-	$( "#form_login" ).submit(function( event ) {
+		$( "#form_login" ).submit(function( event ) {
 		console.log("submit");
 		/* Stop form from submitting normally */
 		event.preventDefault();
@@ -91,10 +139,13 @@ $(document).ready(function() {
 	
 		success: function(data){
 			console.log(data);
-			if(data=="Password incorrecto" || data=="Usuario incorrecto")
-			$( "#error" ).text(data);
-			else
-				$( "#main" ).html(data);
+			if(data=="Password incorrecto" || data=="Usuario incorrecto"){
+				$( "#error" ).text(data);
+			}else{
+				window.location = "/";
+			}
+			
+				
 		},
 		
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -104,39 +155,62 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	// Expand Panel
+	$("#open").click(function(){
+		$("div#panel").slideDown("slow");
+	});	
+ 
+	// Collapse Panel
+	$("#close").click(function(){
+		$("div#panel").slideUp("slow");
+	});		
+ 
+	// Switch buttons from "Log In | Register" to "Close Panel" on click
+	$("#toggle a").click(function () {
+		$("#toggle a").toggle();
+	});	
+
 	
-	//Volver visible el login
- 	$('#login').click(function(){
- 		$('.login-form').css("visibility","visible");
- 		$('.login-form').css("right","50px");
- 	});
+// SCRIPT PARA EL BUSCADOR Y AUTOCOMPLETAR
 
- 	$('#login').hover(function(){
- 		$(this).css("cursor","pointer");
- 	});
+$("#busqueda").geocomplete();
+ 
 
-    // Check if JavaScript is enabled
-    $('body').addClass('js');
- 
-    // Make the checkbox checked on load
-    $('.login-form span').addClass('checked').children('input').attr('checked', true);
- 
-    // Click function
-    $('.login-form span').on('click', function() {
- 
-        if ($(this).children('input').attr('checked')) {
-            $(this).children('input').attr('checked', false);
-            $(this).removeClass('checked');
-        }
- 
-        else {
-            $(this).children('input').attr('checked', true);
-            $(this).addClass('checked');
-        }
- 
+// TABLA DATOS RECINTOS
+
+$.getJSON( "/listarecintos", function(data) {
+	 
+   
+   var texto="";
+   
+var cont2 = 1;
+   $.each( data, function( cont, val ) {
+      
+      texto+= "<tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr>" ;
+    cont2++;
+      cont++;
+    
     });
  
+   	console.log(texto);
+	$("#tabla").append(texto);
+	
+  });
+
+	
+		var socket = io();
+  	socket.on('cambiorecinto', function(msg){
+  		var nombre=msg.columna+msg.id;
+  		if(msg.columna == "Mujeres")
+  			{
+	 	$("#"+nombre).text(msg.numero[0].Mujeres);
+	 }else{
+	 	$("#"+nombre).text(msg.numero[0].Hombres);
+	 }
+ 	 });
 });
+
 </script>
 
 </html>
