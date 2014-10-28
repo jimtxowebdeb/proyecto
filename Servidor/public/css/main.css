@@ -80,6 +80,8 @@ h2{
 			margin: 0 auto;
   			padding: 20px;
   			max-width: 100%;
+  			z-index: 0;
+
 		}
 
 		#cabecera{
@@ -90,7 +92,7 @@ h2{
 		}
 
 		.main{
-			height: 80%;
+			min-height: 600px;
 			display: -webkit-flex;
 			display: flex;
 			flex-flow: inline-block;
@@ -130,7 +132,11 @@ h2{
 		}
 
 		/* MENU NAVEGADOR */
-
+		.menu{
+			position: absolute;
+			left:34%;
+			margin-bottom: 10px;
+		}
 		nav:before {
 			height: 40px;
 			width: 100%;
@@ -183,16 +189,7 @@ h2{
 		  .main {
 		    padding-right: 0px;
 		  }
-		  .buscador {
-		    float: left;
-		    padding-right: 60px;
-		    width: 70%;
-		  }
-		  .tablaRecintos {
-		    float: right;
-		    margin-right: 0px;
-		    width: 30%;
-		  }
+		 
 		 .hirugarrena{
 		    float: right;
 		    margin-left: 100px;
@@ -289,12 +286,14 @@ h2{
 
 		}
 
-		#buscador{
-			display: inline-block;
-			margin: 20px;
-			float: right;
+		.buscador{
+			margin-bottom: 10px;
+			position: absolute;
+			left:34.5%;
+			top:25%;
 			border: solid 1px #d2d2d2;
 			padding: 3px 5px;
+			width: 30%;
 			-webkit-border-radius: 2em;
 			-moz-border-radius: 2em;
 			border-radius: 2em;
@@ -309,7 +308,7 @@ h2{
 		#busqueda{
 			background: #fff;
 			padding: 6px 6px 6px 8px;
-			width: 202px;
+			width: 83%;
 			border: solid 1px #bcbbbb;
 			outline: none;
 			-webkit-border-radius: 2em;
@@ -339,13 +338,18 @@ h2{
 		/* DISEÑO TABLA "RESPONSIVE" */
 
 		div.tablaRecintos{
-			vertical-align: middle;
+			margin-bottom: 10px;
+			position: absolute;
 			text-align: center;
-			margin: 250px;
+			width: 30%;
+			top:37%;
+			left: 35%;
 		}
 
 		table { 
 		  width: 100%; 
+		  border:1px; 
+		 
 		  border-collapse: collapse; 
 		}
 		/* Zebra striping */
@@ -413,3 +417,14 @@ h2{
 		td:nth-of-type(9):before { content: "GPA"; }
 		td:nth-of-type(10):before { content: "Arbitrary Data"; }*/
 	}
+#central {
+	top: 10%;
+	left:40%;
+  	width:300px;
+  	
+  	opacity:0;
+  	position: fixed;
+  	background-color: red;
+  	z-index: -1;
+
+}
