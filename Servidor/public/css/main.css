@@ -131,10 +131,10 @@ h2{
 
 		/* MENU NAVEGADOR */
 
-		nav {
+		nav:before {
 			height: 40px;
 			width: 100%;
-			background: #000;
+			background: #FFF;
 			font-size: 11pt;
 			font-family: 'PT Sans', Arial, sans-serif;
 			font-weight: bold;
@@ -148,7 +148,7 @@ h2{
 			height: 40px;
 		}
 		nav a {
-			color: #FFF;
+			color: #000;
 			display: inline-block;
 			width: 100px;
 			text-align: center;
@@ -160,7 +160,7 @@ h2{
 		    padding: 0px;
 		}
 		nav li a {
-			border-right: 2px solid #FFF;
+			border-right: 2px solid #000;
 			box-sizing:border-box;
 			-moz-box-sizing:border-box;
 			-webkit-box-sizing:border-box;
@@ -169,8 +169,8 @@ h2{
 			border-right: 0;
 		}
 		nav a:hover, nav a:active {
-			background-color: #FFF;
-			color: #000;
+			background-color: #000;
+			color: #fff;
 			font-weight: bold;
 			
 		}
