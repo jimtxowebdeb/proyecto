@@ -15,74 +15,88 @@
 
 </head>
 <body>
-	
+
+<div class="contenido">
 	<div id="cabecera">
 		<header>
 			<div id="logo"><img src="Imagenes/logo.png"></div>
+
+		<!-- Login -->
+			<div id="toppanel">
+				<div id="panel">
+					<div class="content clearfix">
+						<div class="left">
+							<h1>Bienvenidos a ¿Quíen anda ahí?</h1>
+							<h2>Tu web para encontrar la diversión</h2>		
+							<p class="grey">Aquí vas a ver la lista de bares con su respectiva cantidad de gente y su correspondiente diversión. Animate!</h2>
+							<p class="grey">La pagina de donde lo hemos sacado <a href="http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery" title="Download">article &raquo;</a></p>
+						</div>
+						<div class="left">
+							<form class="clearfixLog" name="form_login" id="form_login">
+								<h1 class="padlock">Login</h1>
+								<label class="grey" for="log">Usuario:</label>
+								<input class="field" type="text" name="usuario" id="usuario" value="" size="23" />
+								<label class="grey" for="pwd">Password:</label>
+								<input class="field" type="password" name="pass" id="pass" size="23" />
+								<p id="error"></p>
+				            	<label><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> &nbsp;Recordarme</label>
+			        			<div class="clear"></div>
+								<input type="submit" name="submit" value="Entrar" class="bt_login" />
+								<a class="lost-pwd" href="#">Has olvidado tu contraseña?</a>
+							</form>
+						</div>
+						<div class="left right">
+							<form action="#" method="post">
+								<h1>Aun no eres usuario? Registrate!</h1>				
+								<label class="grey" for="signup">Usuario:</label>
+								<input class="field" type="text" name="signup" id="signup" value="" size="23" />
+								<label class="grey" for="email">Email:</label>
+								<input class="field" type="text" name="email" id="email" size="23" />
+								<label>Rellena el siguiente formulario</label>
+								<input type="submit" name="submit" value="Registro" class="bt_register" />
+								</br>
+								<a href="http://plus.google.com"><img class="imgRegis" src="Imagenes/iconoGoogle.png" /></a>
+								<a href="http://www.facebook.com"><img class="imgLink" src="Imagenes/iconoFacebook.png" /></a>
+							</form>
+						</div>
+					</div>
+				</div> <!-- /login -->	
+
+			    <!-- The tab on top -->	
+				<div class="tab">
+					<ul class="login">
+				    	<li class="left">&nbsp;</li>
+				        <li>Hola {{#if usuario}}{{usuario}}{{else}}Invitado!{{/if}}</li>
+						<li class="sep">|</li>
+						<li id="toggle">
+							{{#unless usuario}}<a id="open" class="open" href="#">Login | Registro</a>{{else}}<a href="/cerrarSesion">Cerrar Sesión</a>{{/unless}}
+							<a id="close" style="display: none;" class="close" href="#">Cerrar Panel</a>			
+						</li>
+				    	<li class="right">&nbsp;</li>
+					</ul> 
+				</div> <!-- / top -->
+				
+			</div> <!--panel -->
+
 		</header>
 	</div>
 	
-	<div id="main">
+	<div class="main">
 		
 		<section>
-			<!-- Login -->
-		<div id="toppanel">
-			<div id="panel">
-				<div class="content clearfix">
-					<div class="left">
-						<h1>Bienvenidos a ¿Quíen anda ahí?</h1>
-						<h2>Tu web para encontrar la diversión</h2>		
-						<p class="grey">Aquí vas a ver la lista de bares con su respectiva cantidad de gente y su correspondiente diversión. Animate!</h2>
-						<p class="grey">La pagina de donde lo hemos sacado <a href="http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery" title="Download">article &raquo;</a></p>
-					</div>
-					<div class="left">
-						<form class="clearfix" name="form_login" id="form_login">
-							<h1 class="padlock">Login</h1>
-							<label class="grey" for="log">Usuario:</label>
-							<input class="field" type="text" name="usuario" id="usuario" value="" size="23" />
-							<label class="grey" for="pwd">Password:</label>
-							<input class="field" type="password" name="pass" id="pass" size="23" />
-							<p id="error"></p>
-			            	<label><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> &nbsp;Recordarme</label>
-		        			<div class="clear"></div>
-							<input type="submit" name="submit" value="Entrar" class="bt_login" />
-							<a class="lost-pwd" href="#">Has olvidado tu contraseña?</a>
-						</form>
-					</div>
-					<div class="left right">
-						<form action="#" method="post">
-							<h1>Aun no eres usuario? Registrate!</h1>				
-							<label class="grey" for="signup">Usuario:</label>
-							<input class="field" type="text" name="signup" id="signup" value="" size="23" />
-							<label class="grey" for="email">Email:</label>
-							<input class="field" type="text" name="email" id="email" size="23" />
-							<label>Rellena el siguiente formulario</label>
-							<input type="submit" name="submit" value="Registro" class="bt_register" />
-							</br>
-							<a href="http://plus.google.com"><img class="imgRegis" src="Imagenes/iconoGoogle.png" /></a>
-							<a href="http://www.facebook.com"><img class="imgLink" src="Imagenes/iconoFacebook.png" /></a>
-						</form>
-					</div>
-				</div>
-			</div> <!-- /login -->	
-
-		    <!-- The tab on top -->	
-			<div class="tab">
-				<ul class="login">
-			    	<li class="left">&nbsp;</li>
-			        <li>Hola {{#if usuario}}{{usuario}}{{else}}Invitado!{{/if}}</li>
-					<li class="sep">|</li>
-					<li id="toggle">
-						{{#unless usuario}}<a id="open" class="open" href="#">Login | Registro</a>{{else}}<a href="/cerrarSesion">Cerrar Sesión</a>{{/unless}}
-						<a id="close" style="display: none;" class="close" href="#">Cerrar Panel</a>			
-					</li>
-			    	<li class="right">&nbsp;</li>
-				</ul> 
-			</div> <!-- / top -->
 			
-		</div> <!--panel -->
-
-		<div id="buscador">
+		<div class="menu">	
+			<nav class="clearfix">
+		        <ul class="clearfix" id="botones">
+		            <li><a href="#">Inicio</a></li>
+		            <li><a href="#">Perfil</a></li>
+		            <li><a href="#">Anuncios</a></li>
+		            <li><a href="#">Foro</a></li>
+		        </ul>
+	           		<a href="#" id="desplegable">Menu</a>
+	      	</nav>
+	     </div>
+		<div class="buscador">
 			<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
 			<input type="button" id="btnBusqueda" value="IR"></input>
 		</div>
@@ -90,7 +104,7 @@
 		<div class="tablaRecintos" style="text-align: center;">
 			
 			<table id="tabla" border="1" align="center">
-				<tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr>
+				<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
 			</table>
 
 		</div>
@@ -115,12 +129,34 @@
 		Copyright Rubén Aparicio y Alvaro Jimenez
 	
 	</footer>
-
+</div>
 </body>
 
 <script>
 
 $(document).ready(function() {
+
+		/* PARA EL MENU EN FORMATO MOVIL */
+
+		$(function() {
+			var pull 		= $('#desplegable');
+				menu 		= $('nav ul');
+				menuHeight	= menu.height();
+
+			$(pull).on('click', function(e) {
+				e.preventDefault();
+				menu.slideToggle();
+			});
+
+			$(window).resize(function(){
+        		var w = $(window).width();
+        		if(w > 320 && menu.is(':hidden')) {
+        			menu.removeAttr('style');
+        		}
+    		});
+		});
+
+		/* FORMULARIO LOGIN */
 	 
 		$( "#form_login" ).submit(function( event ) {
 		console.log("submit");
@@ -187,7 +223,7 @@ $.getJSON( "/listarecintos", function(data) {
 var cont2 = 1;
    $.each( data, function( cont, val ) {
       
-      texto+= "<tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr>" ;
+      texto+= "<tbody><tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr></tbody>" ;
     cont2++;
       cont++;
     

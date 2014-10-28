@@ -8,14 +8,14 @@ Version: 1.0
 
 /***** clearfix *****/
 .clear {clear: both;height: 0;line-height: 0;}
-.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
-.clearfix {display: inline-block;}
+.clearfixLog:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.clearfixLog {display: inline-block;}
 /* Hides from IE-mac \*/
-* html .clearfix {height: 1%;}
-.clearfix {display: block;}
+* html .clearfixLog {height: 1%;}
+.clearfixLog {display: block;}
 /* End hide from IE-mac */
-.clearfix {height: 1%;}
-.clearfix {display: block;}
+.clearfixLog {height: 1%;}
+.clearfixLog {display: block;}
 
 /* Panel Tab/button */
 .tab {
