@@ -2,6 +2,8 @@ var path = require('path'), fs = require('fs'), exphbs = require('express-handle
 var bodyparser = require('body-parser');
 var express=require('express');
 var app = require('express')();
+var morgan = require('morgan');//para lso mensajes de consola
+var cookieParser = require('cookie-parser');//cookies
 
 var servidor = require('http').createServer(app);
 servidor = app.listen(process.env.PORT || 3000, function(){
