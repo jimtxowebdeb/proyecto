@@ -198,6 +198,9 @@
 
 $(document).ready(function() {
 
+	//CONEXION OPENSHIFT
+	var socket = io.connect('http://proyecto-quienandaahi.rhcloud.com:8000');
+
 		/* PARA EL MENU EN FORMATO MOVIL */
 
 		$(function() {

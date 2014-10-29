@@ -9,6 +9,7 @@
     "express-session": "^1.9.0",
     "mysql": "^2.5.1",
     "sequelize": "^2.0.0-rc1",
+    "postinstall": "export HOME=/var/lib/openshift/[instance-id]/app-root/runtime/repo; ./node_modules/bower/bin/bower install",
     "socket.io": "^1.1.0"
   }
 }
